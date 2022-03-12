@@ -24,7 +24,7 @@
 
 <script>
 export default {
-  props:['propsdata'],
+  props:['props'],
   methods: {
     removeTodo: function (todoItem, index) {
       this.todoItems.splice(index, 1);
