@@ -2,7 +2,7 @@
   <section>
     <ul>
       <li
-        v-for="(todoItem, index) in todoItems"
+        v-for="(todoItem, index) in propsdata"
         class="shadow"
         v-bind:key="todoItem.item"
       >
@@ -24,16 +24,13 @@
 
 <script>
 export default {
-  props:['props'],
+  props: ["propsdata"],
   methods: {
     removeTodo: function (todoItem, index) {
-      this.todoItems.splice(index, 1);
-      localStorage.removeItem(todoItem);
+      this.$emit("removeItem", todoItem, index);
     },
-    toggleComplete: function (todoItem) {
-      todoItem.completed = !todoItem.completed;
-      localStorage.removeItem(todoItem.item);
-      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+    toggleComplete: function (todoItem, index) {
+      this.$emit("toggleItem", todoItem, index);
     },
   },
 };
@@ -58,16 +55,15 @@ li {
 }
 .checkBtn {
   line-height: 45px;
-  /* color: black; */
   color: #62acde;
   margin-right: 5px;
 }
 .checkBtnCompleted {
-  /* color: #62acde; */
-  color: black;
+  color: #b3adad;
 }
 .textCompleted {
   text-decoration: line-through;
+  color: #b3adad;
 }
 .removeBtn {
   margin-left: auto;
