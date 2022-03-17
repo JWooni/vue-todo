@@ -4,18 +4,20 @@
     <span class="addContainer" v-on:click="addTodo">
       <i class="addBtn fas fa-plus" aria-hidden="true"></i>
     </span>
-    <Modal v-if="showModal" @close="showModal = false">
+    <AlertModal v-if="showModal" @close="showModal = false">
       <!--
       you can use custom content here to overwrite
       default content
     -->
-      <h3 slot="header">custom header</h3>
-    </Modal>
+      <h3 slot="header">경고!</h3>
+      <h3 slot="body">내용을 입력하세요.</h3>
+      <h3 slot="footer">copy right</h3>
+    </AlertModal>
   </div>
 </template>
 
 <script>
-import Modal from "./common/Modal.vue";
+import AlertModal from "./common/AlertModal.vue";
 
 export default {
   data: function () {
@@ -30,7 +32,7 @@ export default {
         this.$emit("addItem", this.newTodoItem);
         this.clearInput();
       } else {
-        alert("입력해주세요");
+        this.showModal = !this.showModal;
       }
     },
     clearInput: function () {
@@ -38,7 +40,7 @@ export default {
     },
   },
   components: {
-    Modal: Modal,
+    AlertModal: AlertModal,
   },
 };
 </script>
